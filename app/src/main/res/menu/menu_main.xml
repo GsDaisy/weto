@@ -1,0 +1,43 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="s2017s06.kr.hs.mirim.wearetoghther.MainActivity">
+
+    <item
+        android:id="@+id/cafe"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/cafe"
+
+        android:title="카페"
+        />
+
+    <item
+        android:id="@+id/member_out_option"
+        android:title="회원 탈퇴하기"
+        />
+
+    <item
+        android:id="@+id/room_out_option"
+        android:orderInCategory="100"
+        android:title="방 나가기 ->" />
+
+    <item
+        android:title="우리 방 초대코드 ">
+
+        <menu>
+
+            <item
+                android:id="@+id/copy_option"
+                android:title="복사하기"
+                />
+            <item
+                android:id="@+id/share_option"
+                android:title="공유하기"
+                />
+
+
+        </menu>
+
+
+    </item>
+</menu>
