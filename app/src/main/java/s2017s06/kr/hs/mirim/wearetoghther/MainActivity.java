@@ -21,6 +21,8 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
