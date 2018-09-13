@@ -1,7 +1,9 @@
 package s2017s06.kr.hs.mirim.wearetoghther;
 
-import android.support.v4.app.Fragment;
+
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,18 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
-public class Tab1Content extends Fragment {
+public class Main3Activity extends AppCompatActivity {
 
-    SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
-
-    Calendar calendar = Calendar.getInstance();
-    String weekDay = dayFormat.format(calendar.getTime());
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -46,19 +39,29 @@ public class Tab1Content extends Fragment {
     public String msg;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.wtab1, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main3);
 
-        listView = rootView.findViewById(R.id.listviewmsg);
+        editdt = (EditText) findViewById(R.id.tab1Edit);
+        sebbtn = (Button) findViewById(R.id.tab1Button);
+        listView = (ListView)findViewById(R.id.listviewmsg);
 
         initDatabase();
 
-        adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,new ArrayList<String>());
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,new ArrayList<String>());
         listView.setAdapter(adapter);
 
+        sebbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                msg = editdt.getText().toString();
+                databaseReference.child("message").push().setValue(msg);
 
-        mReference = mDatabase.getReference(weekDay);
+            }
+        });
+
+        mReference = mDatabase.getReference("message");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,8 +81,6 @@ public class Tab1Content extends Fragment {
             }
         });
 
-
-        return rootView;
     }
 
     private void initDatabase() {
@@ -124,8 +125,6 @@ public class Tab1Content extends Fragment {
         super.onDestroy();
         mReference.removeEventListener(mChild);
     }
-
-
 }
 
 

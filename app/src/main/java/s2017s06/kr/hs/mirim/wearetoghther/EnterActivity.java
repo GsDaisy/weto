@@ -54,6 +54,7 @@ public class EnterActivity extends AppCompatActivity {
                 final String snick = enter_nick.getText().toString();
 
                     databaseReference.child("user").child(sroom).push().setValue(snick);
+
                     Intent intent = new Intent(EnterActivity.this,MainActivity.class);
                     startActivity(intent);
             }

@@ -1,16 +1,439 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context="s2017s06.kr.hs.mirim.wearetoghther.MainActivity$PlaceholderFragment">
 
     <TextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="가사분답"
+        android:textColor="#000000"
+        android:text="요일 버튼을 누르고 요일 별로 가사분담을 설정하세요"
         />
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:textSize="16dp"
+            android:id="@+id/mon_btn"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:text="월"
+            />
+        <Button
+            android:textSize="16dp"
+            android:id="@+id/tue_btn"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:text="화"
+            />
+        <Button
+            android:textSize="16dp"
+            android:id="@+id/wed_btn"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:text="수"
+            />
+        <Button
+            android:textSize="16dp"
+            android:id="@+id/thu_btn"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:text="목"
+            />
+        <Button
+            android:textSize="16dp"
+            android:id="@+id/fri_btn"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:text="금"
+            />
+        <Button
+            android:textSize="16dp"
+            android:id="@+id/sat_btn"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:text="토"
+            />
+        <Button
+            android:textSize="16dp"
+            android:id="@+id/sun_btn"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:text="일"
+            />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:visibility="invisible"
+            android:id="@+id/linear_mon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="\n\n월요일 가사분담"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="30px"
+                android:layout_marginBottom="10px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_mon1"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_mon2"
+                    android:layout_width="230px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_mon3"
+                    android:layout_width="530px"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginBottom="40px"
+                android:id="@+id/plus_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정 추가"
+                android:textSize="17dp"
+                />
+
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:visibility="invisible"
+            android:id="@+id/linear_tue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="\n\n화요일 가사분담"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="30px"
+                android:layout_marginBottom="10px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_tue1"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_tue2"
+                    android:layout_width="230px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_tue3"
+                    android:layout_width="530px"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginBottom="40px"
+                android:id="@+id/plus_btn2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정 추가"
+                android:textSize="17dp"
+                />
+
+            <ListView
+                android:id="@+id/listView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:visibility="invisible"
+            android:id="@+id/linear_wed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="\n\n수요일 가사분담"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="30px"
+                android:layout_marginBottom="10px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_wed1"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_wed2"
+                    android:layout_width="230px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_wed3"
+                    android:layout_width="530px"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginBottom="40px"
+                android:id="@+id/plus_btn3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정 추가"
+                android:textSize="17dp"
+                />
+
+            <ListView
+                android:id="@+id/listView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:visibility="invisible"
+            android:id="@+id/linear_thu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="\n\n목요일 가사분담"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="30px"
+                android:layout_marginBottom="10px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_thu1"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_thu2"
+                    android:layout_width="230px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_thu3"
+                    android:layout_width="530px"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginBottom="40px"
+                android:id="@+id/plus_btn4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정 추가"
+                android:textSize="17dp"
+                />
+
+            <ListView
+                android:id="@+id/listView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:visibility="invisible"
+            android:id="@+id/linear_fri"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="\n\n금요일 가사분담"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="30px"
+                android:layout_marginBottom="10px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_fri1"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_fri2"
+                    android:layout_width="230px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_fri3"
+                    android:layout_width="530px"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginBottom="40px"
+                android:id="@+id/plus_btn5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정 추가"
+                android:textSize="17dp"
+                />
+
+            <ListView
+                android:id="@+id/listView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:visibility="invisible"
+            android:id="@+id/linear_sat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="\n\n토요일 가사분담"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="30px"
+                android:layout_marginBottom="10px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_sat1"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_sat2"
+                    android:layout_width="230px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_sat3"
+                    android:layout_width="530px"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginBottom="40px"
+                android:id="@+id/plus_btn6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정 추가"
+                android:textSize="17dp"
+                />
+
+            <ListView
+                android:id="@+id/listView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#ffffff"
+            android:visibility="invisible"
+            android:id="@+id/linear_sun"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="\n\n일요일 가사분담"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="30px"
+                android:layout_marginBottom="10px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_sun1"
+                    android:layout_width="200px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_sun2"
+                    android:layout_width="230px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/edit_sun3"
+                    android:layout_width="530px"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginBottom="40px"
+                android:id="@+id/plus_btn7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="일정 추가"
+                android:textSize="17dp"
+                />
+
+            <ListView
+                android:id="@+id/listView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+</LinearLayout>
