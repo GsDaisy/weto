@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,13 +38,10 @@ public class Tab1Content extends Fragment {
     private DatabaseReference mReference;
     private ChildEventListener mChild;
 
+    String Day = "";
     private ListView listView;
     private ArrayAdapter<String> adapter;
     List<Object> Array = new ArrayList<>();
-
-    private Button sebbtn;
-    private EditText editdt;
-    public String msg;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,7 +56,18 @@ public class Tab1Content extends Fragment {
         listView.setAdapter(adapter);
 
 
-        mReference = mDatabase.getReference(weekDay);
+        switch(weekDay) {
+            case "Monday":Day = "월요일"; break;
+            case "Tuesday":Day ="화요일";break;
+            case "Wednesday":Day = "수요일";break;
+            case "Thursday":Day = "목요일";break;
+            case "Friday":Day = "금요일";break;
+            case "Saturday":Day = "토요일"; break;
+            case "Sunday": Day = "일요일"; break;
+            default:Day = weekDay;
+        }
+
+        mReference = mDatabase.getReference(Day);
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

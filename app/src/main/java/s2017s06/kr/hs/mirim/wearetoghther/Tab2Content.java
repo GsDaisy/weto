@@ -77,11 +77,15 @@ public class Tab2Content extends Fragment {
             @Override
             public void onClick(View v) {
                 str1 = editText1.getText().toString()+" "+editText2.getText().toString()+" "+editText3.getText().toString();
-                databaseReference.child("Monday").push().setValue(str1);
+                editText1.setText("");
+                editText2.setText("");
+                editText3.setText("");
+
+                databaseReference.child("월요일").push().setValue(str1);
             }
         });
 
-        mReference = mDatabase.getReference("Monday");
+        mReference = mDatabase.getReference("월요일");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -107,6 +111,7 @@ public class Tab2Content extends Fragment {
                 midList1.remove(position);
                 adapter.notifyDataSetChanged();
 
+
                 return false;
             }
         });
@@ -126,11 +131,15 @@ public class Tab2Content extends Fragment {
             @Override
             public void onClick(View v) {
                 str1 = editText4.getText().toString()+" "+editText5.getText().toString()+" "+editText6.getText().toString();
-                databaseReference.child("Tuesday").push().setValue(str1);
+                editText4.setText("");
+                editText5.setText("");
+                editText6.setText("");
+                databaseReference.child("화요일").push().setValue(str1);
+
             }
         });
 
-        mReference = mDatabase.getReference("Tuesday");
+        mReference = mDatabase.getReference("화요일");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -175,11 +184,15 @@ public class Tab2Content extends Fragment {
             @Override
             public void onClick(View v) {
                 str1 = editText7.getText().toString()+" "+editText8.getText().toString()+" "+editText9.getText().toString();
-                databaseReference.child("Wednesday").push().setValue(str1);
+                editText7.setText("");
+                editText8.setText("");
+                editText9.setText("");
+                databaseReference.child("수요일").push().setValue(str1);
+
             }
         });
 
-        mReference = mDatabase.getReference("Wednesday");
+        mReference = mDatabase.getReference("수요일");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -224,11 +237,15 @@ public class Tab2Content extends Fragment {
             @Override
             public void onClick(View v) {
                 str1 = editText10.getText().toString()+" "+editText11.getText().toString()+" "+editText12.getText().toString();
-                databaseReference.child("Thursday").push().setValue(str1);
+                editText10.setText("");
+                editText11.setText("");
+                editText12.setText("");
+                databaseReference.child("목요일").push().setValue(str1);
+
             }
         });
 
-        mReference = mDatabase.getReference("Thursday");
+        mReference = mDatabase.getReference("목요일");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -273,11 +290,15 @@ public class Tab2Content extends Fragment {
             @Override
             public void onClick(View v) {
                 str1 = editText13.getText().toString()+" "+editText14.getText().toString()+" "+editText15.getText().toString();
-                databaseReference.child("Friday").push().setValue(str1);
+                editText13.setText("");
+                editText14.setText("");
+                editText15.setText("");
+                databaseReference.child("금요일").push().setValue(str1);
+
             }
         });
 
-        mReference = mDatabase.getReference("Friday");
+        mReference = mDatabase.getReference("금요일");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -322,11 +343,15 @@ public class Tab2Content extends Fragment {
             @Override
             public void onClick(View v) {
                 str1 = editText16.getText().toString()+" "+editText17.getText().toString()+" "+editText18.getText().toString();
-                databaseReference.child("Saturday").push().setValue(str1);
+                editText16.setText("");
+                editText17.setText("");
+                editText18.setText("");
+                databaseReference.child("토요일").push().setValue(str1);
+
             }
         });
 
-        mReference = mDatabase.getReference("Saturday");
+        mReference = mDatabase.getReference("토요일");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -355,12 +380,13 @@ public class Tab2Content extends Fragment {
                 return false;
             }
         });
+
         ///////////////////////SUnday
         final ArrayList<String> midList7 = new ArrayList<String>();
         list = (ListView) rootView.findViewById(R.id.listView7);
 
         final ArrayAdapter<String> adapter7 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, midList7);
-        list.setAdapter(adapter6);
+        list.setAdapter(adapter7);
 
         final EditText editText19 = (EditText) rootView.findViewById(R.id.edit_sun1);
         final EditText editText20 = (EditText) rootView.findViewById(R.id.edit_sun2);
@@ -371,11 +397,15 @@ public class Tab2Content extends Fragment {
             @Override
             public void onClick(View v) {
                 str1 = editText19.getText().toString()+" "+editText20.getText().toString()+" "+editText21.getText().toString();
-                databaseReference.child("Sunday").push().setValue(str1);
+                editText19.setText("");
+                editText20.setText("");
+                editText21.setText("");
+                databaseReference.child("일요일").push().setValue(str1);
+
             }
         });
 
-        mReference = mDatabase.getReference("Sunday");
+        mReference = mDatabase.getReference("일요일");
         mReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -484,6 +514,7 @@ public class Tab2Content extends Fragment {
                 layout7.setVisibility(View.INVISIBLE);
             }
         });
+
         btnSun.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -503,7 +534,6 @@ public class Tab2Content extends Fragment {
     private void initDatabase() {
 
         mDatabase = FirebaseDatabase.getInstance();
-
         mReference = mDatabase.getReference("log");
         mReference.child("log").setValue("check");
 

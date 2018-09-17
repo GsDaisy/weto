@@ -29,7 +29,8 @@
         <activity android:name=".BasicMake" />
         <activity android:name=".make" />
         <activity android:name=".EnterActivity" />
-        <activity android:name=".Main3Activity"></activity>
+        <activity android:name=".Main3Activity" />
+        <activity android:name=".Tab3_1Content"></activity>
     </application>
 
 </manifest>
