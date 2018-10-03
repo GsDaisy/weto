@@ -24,16 +24,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        String room = intent.getStringExtra("room");
+        String name = intent.getStringExtra("name");
+        String check = intent.getStringExtra("check");
+
+        if(check.equals("1")) {
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+            databaseReference.child("user").child(room).child("nick").push().setValue(name);
+            Sharevariable s = new Sharevariable(room,name);
+        }
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -47,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 
@@ -84,14 +105,18 @@ public class MainActivity extends AppCompatActivity {
                    Tab1Content tab1 = new Tab1Content();
                    return tab1;
                case 1:
-                   Tab2Content tab2 = new Tab2Content();
+                   Tab5Content tab2 = new Tab5Content();
                    return tab2;
                case 2:
-                   Tab3Content tab3 = new Tab3Content();
+                   Tab2Content tab3 = new Tab2Content();
                    return tab3;
                case 3:
-                   Tab4Content tab4 = new Tab4Content();
+                   Tab3Content tab4 = new Tab3Content();
                    return tab4;
+               case 4:
+                   Tab4Content tab5 = new Tab4Content();
+                   return tab5;
+
                default:
                    return null;
            }
@@ -99,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
 
 

@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.cert.TrustAnchor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,6 +27,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class Tab1Content extends Fragment {
+
+    Sharevariable tab1 = new Sharevariable();
+
+    String Tab1room = tab1.room;
+    String Tab1nick = tab1.nick;
 
     SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
 
@@ -46,6 +52,7 @@ public class Tab1Content extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.wtab1, container, false);
 
         listView = rootView.findViewById(R.id.listviewmsg);
@@ -67,8 +74,8 @@ public class Tab1Content extends Fragment {
             default:Day = weekDay;
         }
 
-        mReference = mDatabase.getReference(Day);
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference("user");
+        mReference.child(Tab1room).child(Day).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.clear();

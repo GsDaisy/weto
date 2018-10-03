@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 10;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,7 @@ public class Login extends AppCompatActivity {
 
 
                 Intent intent1 = new Intent(this,BasicMake.class);
+                intent1.putExtra("check","c");
                 startActivity(intent1);
 
             }

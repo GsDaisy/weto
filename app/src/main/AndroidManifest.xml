@@ -30,7 +30,17 @@
         <activity android:name=".make" />
         <activity android:name=".EnterActivity" />
         <activity android:name=".Main3Activity" />
-        <activity android:name=".Tab3_1Content"></activity>
+        <activity android:name=".Tab3_1Content" />
+
+        <receiver android:name=".wearetogetherwidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wearetogetherwidget_info" />
+        </receiver>
     </application>
 
 </manifest>

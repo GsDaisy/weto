@@ -15,13 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/appbar_padding_top"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="1"
+                app:contentInsetStart="0dp"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
@@ -44,19 +47,24 @@
                     android:id="@+id/tabItem2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_text_2" />
+                    android:text="올리기" />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabItem3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_text_3" />
+                    android:text="가사분담" />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabItem4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tab_text_4" />
+                    android:text="달력" />
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tabItem5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정보" />
 
             </android.support.design.widget.TabLayout>
         </android.support.design.widget.AppBarLayout>

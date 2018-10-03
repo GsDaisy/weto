@@ -85,6 +85,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/mon"
                 android:text="\n\n월요일 가사분담"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

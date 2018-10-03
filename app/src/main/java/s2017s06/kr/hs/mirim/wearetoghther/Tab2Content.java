@@ -1,7 +1,9 @@
 package s2017s06.kr.hs.mirim.wearetoghther;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -27,7 +30,11 @@ import java.util.List;
 
 public class Tab2Content extends Fragment {
 
+    Sharevariable tab2 = new Sharevariable();
+     String Tab2room = tab2.room;
+
     String str1;
+    int pos,i=0;
     ArrayAdapter<String> adapter;
     ListView list;
     Button btnAdd;
@@ -42,6 +49,8 @@ public class Tab2Content extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.wtab2, container, false);
+
+
 
         final LinearLayout layout1 = (LinearLayout) rootView.findViewById(R.id.linear_mon);
         final LinearLayout layout2 = (LinearLayout) rootView.findViewById(R.id.linear_tue);
@@ -58,6 +67,7 @@ public class Tab2Content extends Fragment {
         Button btnFri = (Button) rootView.findViewById(R.id.fri_btn);
         Button btnSat = (Button) rootView.findViewById(R.id.sat_btn);
         Button btnSun = (Button) rootView.findViewById(R.id.sun_btn);
+
 
         initDatabase();
 
@@ -81,19 +91,20 @@ public class Tab2Content extends Fragment {
                 editText2.setText("");
                 editText3.setText("");
 
-                databaseReference.child("월요일").push().setValue(str1);
+                databaseReference.child("user").child(Tab2room).child("월요일").push().setValue(str1);
             }
         });
 
-        mReference = mDatabase.getReference("월요일");
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference("user");
+        mReference.child(Tab2room).child("월요일").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter.clear();
                 for (DataSnapshot messageData : dataSnapshot.getChildren()) {
                     String msg2 = messageData.getValue().toString();
-                    Array.add(msg2);
-                    adapter.add(msg2);
+                        Array.add(msg2);
+                        adapter.add(msg2);
+
                 }
                 adapter.notifyDataSetChanged();
                 list.setSelection(adapter.getCount() - 1);
@@ -106,10 +117,52 @@ public class Tab2Content extends Fragment {
         });
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                midList1.remove(position);
-                adapter.notifyDataSetChanged();
+
+                final int position2 = position;
+
+                i=0;
+                pos = position2+1;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("일정 삭제")
+                        .setMessage("일정을 삭제하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                midList1.remove(position2);
+                                adapter.notifyDataSetChanged();
+
+                                Toast.makeText(getActivity(),"일정이 삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                mReference = mDatabase.getReference("user");
+                                mReference.child(Tab2room).child("월요일").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                                            i++;
+                                            if(pos == i) {mReference.child(Tab2room).child("월요일").child(messageData.getKey()).removeValue();
+                                                break;}
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+
+
+                AlertDialog alert = builder.create();
+                alert.show();
 
 
                 return false;
@@ -134,13 +187,13 @@ public class Tab2Content extends Fragment {
                 editText4.setText("");
                 editText5.setText("");
                 editText6.setText("");
-                databaseReference.child("화요일").push().setValue(str1);
+                databaseReference.child("user").child(Tab2room).child("화요일").push().setValue(str1);
 
             }
         });
 
-        mReference = mDatabase.getReference("화요일");
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference("user");
+        mReference.child(Tab2room).child("화요일").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter2.clear();
@@ -160,10 +213,53 @@ public class Tab2Content extends Fragment {
         });
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                midList2.remove(position);
-                adapter2.notifyDataSetChanged();
+
+                final int position2 = position;
+
+                i=0;
+                pos = position2+1;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("일정 삭제")
+                        .setMessage("일정을 삭제하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                midList2.remove(position2);
+                                adapter2.notifyDataSetChanged();
+
+                                Toast.makeText(getActivity(),"일정이 삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                mReference = mDatabase.getReference("user");
+                                mReference.child(Tab2room).child("화요일").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                                            i++;
+                                            if(pos == i) {mReference.child(Tab2room).child("화요일").child(messageData.getKey()).removeValue();
+                                                break;}
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
 
                 return false;
             }
@@ -187,13 +283,13 @@ public class Tab2Content extends Fragment {
                 editText7.setText("");
                 editText8.setText("");
                 editText9.setText("");
-                databaseReference.child("수요일").push().setValue(str1);
+                databaseReference.child("user").child(Tab2room).child("수요일").push().setValue(str1);
 
             }
         });
 
-        mReference = mDatabase.getReference("수요일");
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference("user");
+        mReference.child(Tab2room).child("수요일").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter3.clear();
@@ -213,10 +309,53 @@ public class Tab2Content extends Fragment {
         });
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                midList3.remove(position);
-                adapter3.notifyDataSetChanged();
+
+                final int position2 = position;
+
+                i=0;
+                pos = position2+1;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("일정 삭제")
+                        .setMessage("일정을 삭제하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                midList3.remove(position2);
+                                adapter3.notifyDataSetChanged();
+
+                                Toast.makeText(getActivity(),"일정이 삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                mReference = mDatabase.getReference("user");
+                                mReference.child(Tab2room).child("수요일").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                                            i++;
+                                            if(pos == i) {mReference.child(Tab2room).child("수요일").child(messageData.getKey()).removeValue();
+                                                break;}
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
 
                 return false;
             }
@@ -240,13 +379,13 @@ public class Tab2Content extends Fragment {
                 editText10.setText("");
                 editText11.setText("");
                 editText12.setText("");
-                databaseReference.child("목요일").push().setValue(str1);
+                databaseReference.child("user").child(Tab2room).child("목요일").push().setValue(str1);
 
             }
         });
 
-        mReference = mDatabase.getReference("목요일");
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference("user");
+        mReference.child(Tab2room).child("목요일").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter4.clear();
@@ -266,10 +405,53 @@ public class Tab2Content extends Fragment {
         });
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                midList4.remove(position);
-                adapter4.notifyDataSetChanged();
+
+                final int position2 = position;
+
+                i=0;
+                pos = position2+1;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("일정 삭제")
+                        .setMessage("일정을 삭제하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                midList4.remove(position2);
+                                adapter4.notifyDataSetChanged();
+
+                                Toast.makeText(getActivity(),"일정이 삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                mReference = mDatabase.getReference("user");
+                                mReference.child(Tab2room).child("목요일").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                                            i++;
+                                            if(pos == i) {mReference.child(Tab2room).child("목요일").child(messageData.getKey()).removeValue();
+                                                break;}
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
 
                 return false;
             }
@@ -293,13 +475,13 @@ public class Tab2Content extends Fragment {
                 editText13.setText("");
                 editText14.setText("");
                 editText15.setText("");
-                databaseReference.child("금요일").push().setValue(str1);
+                databaseReference.child("user").child(Tab2room).child("금요일").push().setValue(str1);
 
             }
         });
 
-        mReference = mDatabase.getReference("금요일");
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference("user");
+        mReference.child(Tab2room).child("금요일").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter5.clear();
@@ -319,10 +501,53 @@ public class Tab2Content extends Fragment {
         });
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                midList5.remove(position);
-                adapter5.notifyDataSetChanged();
+
+                final int position2 = position;
+
+                i=0;
+                pos = position2+1;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("일정 삭제")
+                        .setMessage("일정을 삭제하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                midList5.remove(position2);
+                                adapter5.notifyDataSetChanged();
+
+                                Toast.makeText(getActivity(),"일정이 삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                mReference = mDatabase.getReference("user");
+                                mReference.child(Tab2room).child("금요일").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                                            i++;
+                                            if(pos == i) {mReference.child(Tab2room).child("금요일").child(messageData.getKey()).removeValue();
+                                                break;}
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
 
                 return false;
             }
@@ -346,13 +571,13 @@ public class Tab2Content extends Fragment {
                 editText16.setText("");
                 editText17.setText("");
                 editText18.setText("");
-                databaseReference.child("토요일").push().setValue(str1);
+                databaseReference.child("user").child(Tab2room).child("토요일").push().setValue(str1);
 
             }
         });
 
-        mReference = mDatabase.getReference("토요일");
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference("user");
+        mReference.child(Tab2room).child("토요일").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter6.clear();
@@ -372,10 +597,53 @@ public class Tab2Content extends Fragment {
         });
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                midList6.remove(position);
-                adapter6.notifyDataSetChanged();
+
+                final int position2 = position;
+
+                i=0;
+                pos = position2+1;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("일정 삭제")
+                        .setMessage("일정을 삭제하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                midList6.remove(position2);
+                                adapter6.notifyDataSetChanged();
+
+                                Toast.makeText(getActivity(),"일정이 삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                mReference = mDatabase.getReference("user");
+                                mReference.child(Tab2room).child("토요일").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                                            i++;
+                                            if(pos == i) {mReference.child(Tab2room).child("토요일").child(messageData.getKey()).removeValue();
+                                                break;}
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
 
                 return false;
             }
@@ -400,13 +668,13 @@ public class Tab2Content extends Fragment {
                 editText19.setText("");
                 editText20.setText("");
                 editText21.setText("");
-                databaseReference.child("일요일").push().setValue(str1);
+                databaseReference.child("user").child(Tab2room).child("일요일").push().setValue(str1);
 
             }
         });
 
-        mReference = mDatabase.getReference("일요일");
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference = mDatabase.getReference("user");
+        mReference.child(Tab2room).child("일요일").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 adapter7.clear();
@@ -426,10 +694,53 @@ public class Tab2Content extends Fragment {
         });
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                midList7.remove(position);
-                adapter7.notifyDataSetChanged();
+
+                final int position2 = position;
+
+                i=0;
+                pos = position2+1;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("일정 삭제")
+                        .setMessage("일정을 삭제하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                midList7.remove(position2);
+                                adapter7.notifyDataSetChanged();
+
+                                Toast.makeText(getActivity(),"일정이 삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                                mReference = mDatabase.getReference("user");
+                                mReference.child(Tab2room).child("일요일").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot messageData : dataSnapshot.getChildren()) {
+                                            i++;
+                                            if(pos == i) {mReference.child(Tab2room).child("일요일").child(messageData.getKey()).removeValue();
+                                                break;}
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        }).setNegativeButton("취소",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
 
                 return false;
             }
