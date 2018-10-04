@@ -1,12 +1,18 @@
 package s2017s06.kr.hs.mirim.wearetoghther;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,6 +32,64 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+class MyListAdapter extends ArrayAdapter<String>{
+    public static final String TAG="권한";
+    Context maincon;
+    LayoutInflater inflater;
+    int layout;
+    ArrayList<String> arSrc;
+    // public Context c;
+    public MyListAdapter(Context context, int alayout, ArrayList<String> arrSrc){
+        super(context, alayout,arrSrc);
+        maincon = context;
+        this.arSrc = arrSrc;
+        layout = alayout;
+        inflater = LayoutInflater.from(maincon);
+
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        //final int pos = position;
+
+        final Context context = parent.getContext();
+
+        View v = convertView;
+        if(convertView==null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            v = inflater.inflate(R.layout.widget_icontext, parent, false);
+
+            TextView txt = (TextView) v.findViewById(R.id.widget_text);
+            txt.setText("");
+            txt.setText(arSrc.get(position));
+            txt.setTextSize(25);
+
+            CheckBox checkBox = (CheckBox)v.findViewById(R.id.checkbox);
+            //checkBox.setClickable(false);
+            //checkBox.setChecked(items.get(position).isChecked());
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                @Override
+                public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+
+                    if(view.isChecked()){
+                        //Log.d(LOG_TAG, "checked list item is : " + String.valueOf(listnumber+1));
+                        //Log.d(LOG_TAG, "checked list name is : " + String.valueOf(view.getText()));
+                        //states[listnumber]=isChecked;
+                    }
+                }
+            });
+
+
+        }
+
+        return v;
+    }
+
+
+}
+
+
 public class Tab1Content extends Fragment {
 
     Sharevariable tab1 = new Sharevariable();
@@ -33,6 +97,7 @@ public class Tab1Content extends Fragment {
     String Tab1room = tab1.room;
     String Tab1nick = tab1.nick;
 
+    //private FloatingActionButton fab;
     SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
 
     Calendar calendar = Calendar.getInstance();
@@ -56,6 +121,7 @@ public class Tab1Content extends Fragment {
         View rootView = inflater.inflate(R.layout.wtab1, container, false);
 
         listView = rootView.findViewById(R.id.listviewmsg);
+
 
         initDatabase();
 
@@ -95,8 +161,13 @@ public class Tab1Content extends Fragment {
         });
 
 
+
+
+
+
         return rootView;
     }
+
 
     private void initDatabase() {
 

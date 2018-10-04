@@ -1,18 +1,13 @@
 package s2017s06.kr.hs.mirim.wearetoghther;
-/*
-import android.app.Activity;
+
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,8 +27,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-
-public class Tab5Content extends Fragment {
+public class UploadMain extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -52,18 +46,16 @@ public class Tab5Content extends Fragment {
     private StorageTask mUploadTask;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ){
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_upload_main);
 
-        View rootView = inflater.inflate(R.layout.fragment_tab5_content, container, false);
-       // super.onStart(savedInstanceState);
-       // setContentView(R.layout.fragment_tab5_content);
-
-        mButtonChooseImage = rootView.findViewById(R.id.button_choose_image);
-        mButtonUpload = rootView.findViewById(R.id.button_upload);
-        mTextViewShowUploads = rootView.findViewById(R.id.text_view_show_uploads);
-        mEditTextFileName = rootView.findViewById(R.id.edit_text_file_name);
-        mImageView = rootView.findViewById(R.id.image_view);
-        mProgressBar = rootView.findViewById(R.id.progress_bar);
+        mButtonChooseImage = findViewById(R.id.button_choose_image);
+        mButtonUpload = findViewById(R.id.button_upload);
+        mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
+        mEditTextFileName = findViewById(R.id.edit_text_file_name);
+        mImageView = findViewById(R.id.image_view);
+        mProgressBar = findViewById(R.id.progress_bar);
 
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
@@ -79,7 +71,7 @@ public class Tab5Content extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mUploadTask != null && mUploadTask.isInProgress()) {
-                    Toast.makeText(getActivity(), "Upload in progress", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadMain.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadFile();
                 }
@@ -92,7 +84,6 @@ public class Tab5Content extends Fragment {
                 openImagesActivity();
             }
         });
-        return rootView;
     }
 
     private void openFileChooser() {
@@ -103,18 +94,19 @@ public class Tab5Content extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
-            Picasso.with(getActivity()).load(mImageUri).into(mImageView);
+            Picasso.with(this).load(mImageUri).into(mImageView);
         }
     }
 
     private String getFileExtension(Uri uri) {
-        ContentResolver cR = getActivity().getApplicationContext().getContentResolver();
+        ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
@@ -136,7 +128,7 @@ public class Tab5Content extends Fragment {
                                 }
                             }, 500);
 
-                            Toast.makeText(getActivity(), "Upload successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(UploadMain.this, "Upload successful", Toast.LENGTH_LONG).show();
                             Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
                                     taskSnapshot.getDownloadUrl().toString());
                             String uploadId = mDatabaseRef.push().getKey();
@@ -146,7 +138,7 @@ public class Tab5Content extends Fragment {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UploadMain.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -157,12 +149,12 @@ public class Tab5Content extends Fragment {
                         }
                     });
         } else {
-            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void openImagesActivity() {
-        Intent intent = new Intent(getActivity(), ImagesActivity.class);
+        Intent intent = new Intent(this, ImagesActivity.class);
         startActivity(intent);
     }
-}*/
+}

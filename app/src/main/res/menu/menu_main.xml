@@ -10,6 +10,13 @@
 
         android:title="카페"
         />
+    <item
+        android:id="@+id/upload_icon"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/floating_button_image"
+        android:title="올리기"
+        />
+
 
     <item
         android:id="@+id/member_out_option"

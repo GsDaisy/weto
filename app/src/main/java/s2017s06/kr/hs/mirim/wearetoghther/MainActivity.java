@@ -87,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        else if (id == R.id.upload_icon){
+            Intent intent = new Intent(this, UploadMain.class);
+            startActivity(intent);
+            return true;
+        }
+        else{
+
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -104,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
                case 0:
                    Tab1Content tab1 = new Tab1Content();
                    return tab1;
-               case 1:
-                   Tab5Content tab2 = new Tab5Content();
-                   return tab2;
+               //case 1:
+               //    Tab5Content tab2 = new Tab5Content();
+               //    return tab2;
                case 2:
                    Tab2Content tab3 = new Tab2Content();
                    return tab3;
@@ -124,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 5;
+            return 4;
         }
 
 
